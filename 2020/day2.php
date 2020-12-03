@@ -46,4 +46,22 @@ foreach($data as $line) {
 
 echo "Day 2 Part 1 Result: {$numberOfValidPasswords}" . PHP_EOL;
 
+$numberOfValidPasswords = 0;
+
+foreach($data as $line) {
+        $index1 = intval(substr($line, 0, strpos($line, "-")));
+        $index2 = intval(substr($line, strpos($line, "-") + 1, strpos(substr($line, strpos($line, "-") + 1), " ")));
+        $character = substr($line, strpos($line, ":") - 1, 1);
+        $password = substr($line, strpos($line, ":") + 2);
+
+        $passwordCharacters = str_split($password);
+	if($passwordCharacters[$index1-1] == $character && $passwordCharacters[$index2-1] != $character) {
+		$numberOfValidPasswords++;
+	} else if($passwordCharacters[$index1-1] != $character && $passwordCharacters[$index2-1] == $character) {
+		$numberOfValidPasswords++;
+	}
+}
+
+echo "Day 2 Part 2 Result: {$numberOfValidPasswords}" . PHP_EOL;
+
 fclose($dataFile);
