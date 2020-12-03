@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 $dataFile = fopen('day1.txt', 'r') or die('Data file does not exist.');
 
@@ -7,12 +8,9 @@ $data = [];
 while(!feof($dataFile)) {
 	// Remove newline
 	$line = fgets($dataFile);
-	$parsedValue = intval(substr($line, 0, -1));
 
-	if($parsedValue !== 0) {
-		if(isset($data[$parsedValue])) {
-			echo "Duplicate value found";
-		}
+	if($line !== false) {
+		$parsedValue = intval(substr($line, 0, -1));
 
 		$data[intval(substr($line, 0, -1))] = true;
 	}
