@@ -7,57 +7,55 @@ namespace App\Classes;
 class SubmarineComputer
 {
     public $commands;
-    private $depth;
-    private $position;
-    private $aim;
 
     public function __construct($commands)
     {
         $this->commands = $commands;
     }
 
-    public function getDepth()
+    public function calculate()
     {
-        return $this->depth;
-    }
+        $depth = 0;
+        $position = 0;
 
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    public function execute()
-    {
         foreach($this->commands as $command) {
             switch($command->direction) {
                 case 'forward':
-                    $this->position += $command->amount;
+                    $position += $command->amount;
                     break;
                 case 'down':
-                    $this->depth += $command->amount;
+                    $depth += $command->amount;
                     break;
                 case 'up':
-                    $this->depth -= $command->amount;
+                    $depth -= $command->amount;
                     break;
             }
         }
+
+        return $position * $depth;
     }
 
-    public function executeAdvanced()
+    public function calculateAdvanced(): int
     {
+        $depth = 0;
+        $position = 0;
+        $aim = 0;
+
         foreach($this->commands as $command) {
             switch($command->direction) {
                 case 'forward':
-                    $this->position += $command->amount;
-                    $this->depth += $this->aim * $command->amount;
+                    $position += $command->amount;
+                    $depth += $aim * $command->amount;
                     break;
                 case 'down':
-                    $this->aim += $command->amount;
+                    $aim += $command->amount;
                     break;
                 case 'up':
-                    $this->aim -= $command->amount;
+                    $aim -= $command->amount;
                     break;
             }
         }
+
+        return $position * $depth;
     }
 }

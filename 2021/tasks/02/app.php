@@ -16,25 +16,14 @@ $parser = new Parser(dirname(__FILE__) . '/data.in');
 $commands = $parser->read(new SubmarineCommandsReader);
 $computer = new SubmarineComputer($commands);
 
-$computer->execute();
-$solution = $computer->getPosition() * $computer->getDepth();
-
-$parser->close();
-
-echo "Part 1: Depth is {$computer->getDepth()}, Position is {$computer->getPosition()}. Position*Depth={$solution}" . PHP_EOL;
-
-$parser = new Parser(dirname(__FILE__) . '/data.in');
-
-$commands = $parser->read(new SubmarineCommandsReader);
-$computer = new SubmarineComputer($commands);
-
-$computer->executeAdvanced();
-$solution = $computer->getPosition() * $computer->getDepth();
+$firstSolution = $computer->calculate();
+$secondSolution = $computer->calculateAdvanced();
 
 $parser->close();
 
 $timeEnd = microtime(true);
 $executionTime = ($timeEnd - $timeStart) * 1000;
 
-echo "Part 2: Depth is {$computer->getDepth()}, Position is {$computer->getPosition()}. Position*Depth={$solution}" . PHP_EOL . PHP_EOL;
+echo "Part 1: Position*Depth={$firstSolution}" . PHP_EOL;
+echo "Part 2: Position*Depth={$secondSolution}" . PHP_EOL . PHP_EOL;
 echo "Execution time (ms): {$executionTime}" . PHP_EOL;
