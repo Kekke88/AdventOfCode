@@ -6,10 +6,6 @@ use App\Classes\Parser;
 use App\Classes\SubmarineCommandsReader;
 use App\Classes\SubmarineComputer;
 
-/*
-Part 1
-*/
-
 $timeStart = microtime(true);
 $parser = new Parser(dirname(__FILE__) . '/data.in');
 
