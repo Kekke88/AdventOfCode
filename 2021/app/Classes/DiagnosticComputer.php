@@ -60,15 +60,13 @@ class DiagnosticComputer
             $filterValue = $least ? "1" : "0";
         }
 
-        foreach ($diagnostics as $diagnostic) {
-            if ($diagnostic->value[$index] == $filterValue) {
-                $filteredBits[] = $diagnostic;
-            }
-        }
+        $filteredBits = array_filter($diagnostics, function($v) use ($filterValue, $index) {
+            return $v->value[$index] == $filterValue;
+        });
 
         // And when we only have one value left - return it
         if (sizeof($filteredBits) == 1) {
-            return $filteredBits[0];
+            return reset($filteredBits);
         }
 
         return $this->filterBits($index + 1, $filteredBits, $least);
