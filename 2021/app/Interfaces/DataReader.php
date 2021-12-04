@@ -6,5 +6,6 @@ namespace App\Interfaces;
 
 interface DataReader {
     public function parse($data);
+    public function read($file);
     public function data();
 }

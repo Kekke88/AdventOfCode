@@ -29,6 +29,13 @@ class Parser
         return $reader->data();
     }
 
+    public function readStruct(DataReader $reader)
+    {
+        $reader->read($this->file);
+
+        return $reader->data();
+    }
+
     public function readLine(): string
     {
         return fgets($this->file);
