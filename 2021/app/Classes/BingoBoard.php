@@ -41,37 +41,30 @@ class BingoBoard
 
     public function won()
     {
-        $won = false;
         $boardNums = [0, 0, 0, 0, 0];
 
         for ($i = 0; $i < sizeof($this->value); $i++) {
+            // Save all marked numbers as 1s and unmarked as 0
+            // Then count the sum of the array, if it is 5 that means we have a horizontal bingo
+            // If we don't get 5 we save the array and add it together inside another array
+            // Which means if we have 5 on the same index, we will have a 5 inside boardNums
             $num = array_map(function ($value) {
-                if ($value >= $this->MARKED) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+                return $value >= $this->MARKED ? 1 : 0;
             }, $this->value[$i]);
 
             // Horizontal bingo
             if (array_sum($num) == 5) {
-                $won = true;
+                return true;
             }
 
+            // Vertical bingo
             foreach ($num as $key => $number) {
                 $boardNums[$key] += $number;
+
+                if($boardNums[$key] == 5) return true;
             }
         }
 
-        // Vertical bingo
-        if (!$won) {
-            foreach ($boardNums as $markedValue) {
-                if ($markedValue == 5) {
-                    $won = true;
-                }
-            }
-        }
-
-        return $won;
+        return false;
     }
 }
