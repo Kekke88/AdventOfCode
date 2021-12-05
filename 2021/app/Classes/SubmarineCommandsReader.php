@@ -15,6 +15,11 @@ class SubmarineCommandsReader implements DataReader
         $this->data[] = new SubmarineCommand($data[0], $data[1]);
     }
 
+    public function read($data)
+    {
+        return;
+    }
+
     public function data() {
         return $this->data;
     }

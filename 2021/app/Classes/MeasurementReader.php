@@ -14,6 +14,11 @@ class MeasurementReader implements DataReader
         $this->data[] = new Measurement($data);
     }
 
+    public function read($data)
+    {
+        return;
+    }
+
     public function data() {
         return $this->data;
     }
