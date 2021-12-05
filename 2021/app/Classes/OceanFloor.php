@@ -34,11 +34,13 @@ class OceanFloor
             if ($hydroVent->fromX == $hydroVent->toX || $hydroVent->fromY == $hydroVent->toY) {
                 // Only horizontal and vertical lines
 
+                // Sort X and Y by smallest 
                 $fromX = $hydroVent->fromX < $hydroVent->toX ? $hydroVent->fromX : $hydroVent->toX;
                 $toX = $hydroVent->fromX < $hydroVent->toX ? $hydroVent->toX : $hydroVent->fromX;
                 $fromY = $hydroVent->fromY < $hydroVent->toY ? $hydroVent->fromY : $hydroVent->toY;
                 $toY = $hydroVent->fromY < $hydroVent->toY ? $hydroVent->toY : $hydroVent->fromY;
 
+                // Loop over X and Y and increase danger zones
                 for ($x = $fromX; $x <= $toX; $x++) {
                     for ($y = $fromY; $y <= $toY; $y++) {
                         if (!isset($this->map[$x][$y])) {
@@ -50,24 +52,15 @@ class OceanFloor
             } else if($diagonal) {
                 // Diagonal line
 
-                $spaces = abs($hydroVent->fromX - $hydroVent->toX);
-                for($i = 0; $i <= $spaces; $i++) {
+                $steps = abs($hydroVent->fromX - $hydroVent->toX);
+                for($i = 0; $i <= $steps; $i++) {
                     if (!isset($this->map[$hydroVent->fromX][$hydroVent->fromY])) {
                         $this->map[$hydroVent->fromX][$hydroVent->fromY] = 0;
                     }
                     $this->map[$hydroVent->fromX][$hydroVent->fromY]++;
-                    
-                    if($hydroVent->fromX > $hydroVent->toX) {
-                        $hydroVent->fromX--;
-                    } else {
-                        $hydroVent->fromX++;
-                    }
 
-                    if($hydroVent->fromY > $hydroVent->toY) {
-                        $hydroVent->fromY--;
-                    } else {
-                        $hydroVent->fromY++;
-                    }
+                    $hydroVent->fromX > $hydroVent->toX ? $hydroVent->fromX-- : $hydroVent->fromX++;
+                    $hydroVent->fromY > $hydroVent->toY ? $hydroVent->fromY-- : $hydroVent->fromY++;
                 }
             }
         }
