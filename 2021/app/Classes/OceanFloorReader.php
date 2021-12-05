@@ -18,8 +18,8 @@ class OceanFloorReader implements DataReader
     }
 
     public function parse($data) {
-        $data = explode(" -> ", $data);
-        $this->oceanFloor->addVent(new HydroVent($data[0], $data[1]));
+        [$start, $end] = explode(" -> ", $data);
+        $this->oceanFloor->addVent(new HydroVent($start, $end));
     }
 
     public function read($data)

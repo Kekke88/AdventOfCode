@@ -34,15 +34,9 @@ class OceanFloor
             if ($hydroVent->fromX == $hydroVent->toX || $hydroVent->fromY == $hydroVent->toY) {
                 // Only horizontal and vertical lines
 
-                // Sort X and Y by smallest 
-                $fromX = $hydroVent->fromX < $hydroVent->toX ? $hydroVent->fromX : $hydroVent->toX;
-                $toX = $hydroVent->fromX < $hydroVent->toX ? $hydroVent->toX : $hydroVent->fromX;
-                $fromY = $hydroVent->fromY < $hydroVent->toY ? $hydroVent->fromY : $hydroVent->toY;
-                $toY = $hydroVent->fromY < $hydroVent->toY ? $hydroVent->toY : $hydroVent->fromY;
-
                 // Loop over X and Y and increase danger zones
-                for ($x = $fromX; $x <= $toX; $x++) {
-                    for ($y = $fromY; $y <= $toY; $y++) {
+                for ($x = min($hydroVent->fromX, $hydroVent->toX); $x <= max($hydroVent->fromX, $hydroVent->toX); $x++) {
+                    for ($y = min($hydroVent->fromY, $hydroVent->toY); $y <= max($hydroVent->fromY, $hydroVent->toY); $y++) {
                         if (!isset($this->map[$x][$y])) {
                             $this->map[$x][$y] = 0;
                         }
