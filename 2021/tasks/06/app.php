@@ -6,7 +6,7 @@ use App\Classes\Parser;
 use App\Classes\FishSchoolReader;
 
 $timeStart = microtime(true);
-$parser = new Parser(dirname(__FILE__) . '/test.in');
+$parser = new Parser(dirname(__FILE__) . '/data.in');
 
 $fishSchool = $parser->read(new FishSchoolReader);
 
