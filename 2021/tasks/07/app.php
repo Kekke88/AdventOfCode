@@ -16,6 +16,6 @@ $timeEnd = microtime(true);
 $executionTime = ($timeEnd - $timeStart) * 1000;
 
 echo "Part 1: Fuel={$cheapestRoute}" . PHP_EOL;
-echo "Part 2: Fuel={$cheapestRealRoute}" . PHP_EOL . PHP_EOL;
+echo "Part 2: Fuel={$cheapestRealRoute}" . PHP_EOL;
 echo "Execution time (ms): {$executionTime}" . PHP_EOL;
 // Execution time (ms): 282.71007537842
