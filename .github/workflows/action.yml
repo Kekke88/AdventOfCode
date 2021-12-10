@@ -27,8 +27,8 @@ jobs:
     - name: Run
       id: run
       run: |
-        ./scripts/ci/run.sh
-        
+        ../scripts/ci/run.sh
+
     - name: Send results to discord
       uses: sarisia/actions-status-discord@v1
       with:
