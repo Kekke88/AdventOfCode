@@ -23,3 +23,21 @@ jobs:
 
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit tests --testdox
+
+    - name: Run
+      id: run
+      run: |
+        ./scripts/ci/run.sh
+        
+    - name: Send results to discord
+      uses: sarisia/actions-status-discord@v1
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
+        username: Github
+        title: ${{github.actor}}
+        nodetail: true
+        description: |
+          **[${{github.repository}}:${{github.ref_name}}](https://github.com/${{github.repository}}/commit/${{github.sha}})**
+          ${{ github.event.head_commit.message }}
+          ${{join(steps.run.outputs.*, '
+          ')}}

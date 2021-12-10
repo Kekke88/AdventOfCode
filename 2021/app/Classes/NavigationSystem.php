@@ -17,11 +17,11 @@ class NavigationSystem
     {
         $points = 0;
 
-        foreach ($this->instructions as $instruction) {
-            do {
-                $instruction = preg_replace('/(\(\)|\{\}|\[\]|\<\>)/', '', $instruction, -1, $count);
-            } while ($count > 0);
+        do {
+            $this->instructions = preg_replace('/(\(\)|\{\}|\[\]|\<\>)/', '', $this->instructions, -1, $count);
+        } while ($count > 0);
 
+        foreach ($this->instructions as $instruction) {
             $points += match (preg_replace('/(\(|\{|\[|\<)/', '', $instruction) ?? null) {
                 ')' => 3,
                 ']' => 57,
