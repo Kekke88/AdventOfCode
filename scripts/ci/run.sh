@@ -1,6 +1,6 @@
 #!/bin/bash
 YEAR=$(date +"%Y")
-for e in $(find $YEAR -type f -name 'app.php' | tail -5); do
+for e in $(find . -type f -name 'app.php' | tail -5); do
         n=$(echo $e | cut -d/ -f3)
         echo "::set-output name=$n-name::**day$n**"
         i=0
