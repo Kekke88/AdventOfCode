@@ -15,20 +15,12 @@ class CrabFuel
 
     public function calculateOptimalRoute()
     {
-        $min = min($this->crabs);
-        $max = max($this->crabs);
+        sort($this->crabs);
+        $median = $this->crabs[sizeof($this->crabs)/2];
+        $cheapestRoute = 0;
 
-        $cheapestRoute = PHP_INT_MAX;
-
-        for($i = $min; $i <= $max; $i++) {
-            $cost = 0;
-            foreach($this->crabs as $crab) {
-                $cost += abs($crab - $i);
-            }
-
-            if($cheapestRoute > $cost) {
-                $cheapestRoute = $cost;
-            }
+        foreach($this->crabs as $crab) {
+            $cheapestRoute += abs($crab - $median);
         }
 
         return $cheapestRoute;
@@ -36,20 +28,12 @@ class CrabFuel
 
     public function calculateRealOptimalRoute()
     {
-        $min = min($this->crabs);
-        $max = max($this->crabs);
+        $mean = floor(array_sum($this->crabs) / sizeof($this->crabs));
+        $cheapestRoute = 0;
 
-        $cheapestRoute = PHP_INT_MAX;
-
-        for($i = $min; $i <= $max; $i++) {
-            $cost = 0;
-            foreach($this->crabs as $crab) {
-                $cost += (abs($crab - $i) / 2)*(1 + abs($crab - $i));
-            }
-
-            if($cheapestRoute > $cost) {
-                $cheapestRoute = $cost;
-            }
+        foreach($this->crabs as $crab) {
+            $cost = abs($crab - $mean);
+            $cheapestRoute += ($cost * $cost + $cost) / 2;
         }
 
         return $cheapestRoute;
