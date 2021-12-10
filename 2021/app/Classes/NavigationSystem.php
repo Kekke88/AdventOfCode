@@ -13,6 +13,28 @@ class NavigationSystem
         $this->instructions[] = $instruction;
     }
 
+    public function getInvalidPointsUsingRegex(): int
+    {
+        $points = 0;
+
+        foreach ($this->instructions as $instruction) {
+            do {
+                $instruction = preg_replace('/(\(\)|\{\}|\[\]|\<\>)+/', '', $instruction, -1, $count);
+            } while ($count > 0);
+
+            $brace = preg_replace('/(\(|\{|\[|\<)+/', '', $instruction);
+            $points += match (isset($brace[0]) ? $brace[0] : null) {
+                ')' => 3,
+                ']' => 57,
+                '}' => 1197,
+                '>' => 25137,
+                default => 0
+            };
+        }
+
+        return $points;
+    }
+
     public function getCorruptedPoints()
     {
         $instructions = $this->getCorruptedInstructions();
@@ -25,18 +47,18 @@ class NavigationSystem
         ];
 
         $i = 0;
-        foreach($instructions as $instruction) {
+        foreach ($instructions as $instruction) {
             $points[$i] = 0;
-            foreach($instruction as $brace) {
+            foreach ($instruction as $brace) {
                 $points[$i] = $points[$i] * 5;
                 $points[$i] += $pointsMap[$brace];
             }
             $i++;
         }
-        
+
         sort($points);
 
-        return $points[floor(sizeof($points)/2)];
+        return $points[floor(sizeof($points) / 2)];
     }
 
     public function getInvalidPoints()
@@ -95,7 +117,7 @@ class NavigationSystem
             }
 
             if (!$isInvalid) {
-                for($i = sizeof($openBraces) - 1; $i >= 0; $i--) {
+                for ($i = sizeof($openBraces) - 1; $i >= 0; $i--) {
                     $corruptInstructions[$j][] = $closingBracesMap[$openBraces[$i]];
                 }
                 $j++;
