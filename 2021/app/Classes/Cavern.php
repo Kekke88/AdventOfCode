@@ -34,7 +34,7 @@ class Cavern
         return $size;
     }
 
-    public function flash($y, $x, &$flashes)
+    public function flash($y, $x, &$flashes, &$pointsFlashed)
     {
         $flashes++;
 
@@ -51,14 +51,14 @@ class Cavern
 
         foreach ($directions as $direction) {
             if (!isset($this->octopuses[$y + $direction[ROW]][$x + $direction[COL]])) continue;
+            if (isset($pointsFlashed[$y + $direction[ROW]][$x + $direction[COL]])) continue;
 
-            if ($this->octopuses[$y + $direction[ROW]][$x + $direction[COL]] !== -1) {
-                $this->octopuses[$y + $direction[ROW]][$x + $direction[COL]]++;
-            }
+            $this->octopuses[$y + $direction[ROW]][$x + $direction[COL]]++;
 
             if ($this->octopuses[$y + $direction[ROW]][$x + $direction[COL]] > 9) {
-                $this->octopuses[$y + $direction[ROW]][$x + $direction[COL]] = -1;
-                $this->flash($y + $direction[ROW], $x + $direction[COL], $flashes);
+                $this->octopuses[$y + $direction[ROW]][$x + $direction[COL]] = 0;
+                $pointsFlashed[$y + $direction[ROW]][$x + $direction[COL]] = 1;
+                $this->flash($y + $direction[ROW], $x + $direction[COL], $flashes, $pointsFlashed);
             }
         }
     }
@@ -69,21 +69,17 @@ class Cavern
 
         for ($i = 0; $i < PHP_INT_MAX; $i++) {
             $flashes = 0;
+            $pointsFlashed = [];
 
             for ($y = 0; $y < ROW_COUNT; $y++) {
                 for ($x = 0; $x < COL_COUNT; $x++) {
-                    if ($this->octopuses[$y][$x] !== -1) $this->octopuses[$y][$x]++;
+                    if (!isset($pointsFlashed[$y][$x])) $this->octopuses[$y][$x]++;
 
                     if ($this->octopuses[$y][$x] > 9) {
-                        $this->octopuses[$y][$x] = -1;
-                        $this->flash($y, $x, $flashes);
+                        $this->octopuses[$y][$x] = 0;
+                        $pointsFlashed[$y][$x] = 1;
+                        $this->flash($y, $x, $flashes, $pointsFlashed);
                     }
-                }
-            }
-
-            for ($y = 0; $y < ROW_COUNT; $y++) {
-                for ($x = 0; $x < COL_COUNT; $x++) {
-                    if ($this->octopuses[$y][$x] === -1) $this->octopuses[$y][$x] = 0;
                 }
             }
 
@@ -98,20 +94,17 @@ class Cavern
         $flashes = 0;
 
         for ($i = 0; $i < $steps; $i++) {
+            $pointsFlashed = [];
+
             for ($y = 0; $y < ROW_COUNT; $y++) {
                 for ($x = 0; $x < COL_COUNT; $x++) {
-                    if ($this->octopuses[$y][$x] !== -1) $this->octopuses[$y][$x]++;
+                    if (!isset($pointsFlashed[$y][$x])) $this->octopuses[$y][$x]++;
 
                     if ($this->octopuses[$y][$x] > 9) {
-                        $this->octopuses[$y][$x] = -1;
-                        $this->flash($y, $x, $flashes);
+                        $this->octopuses[$y][$x] = 0;
+                        $pointsFlashed[$y][$x] = 1;
+                        $this->flash($y, $x, $flashes, $pointsFlashed);
                     }
-                }
-            }
-
-            for ($y = 0; $y < ROW_COUNT; $y++) {
-                for ($x = 0; $x < COL_COUNT; $x++) {
-                    if ($this->octopuses[$y][$x] === -1) $this->octopuses[$y][$x] = 0;
                 }
             }
         }
