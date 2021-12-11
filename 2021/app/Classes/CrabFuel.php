@@ -28,7 +28,9 @@ class CrabFuel
 
     public function calculateRealOptimalRoute()
     {
-        $mean = floor(array_sum($this->crabs) / sizeof($this->crabs));
+        $mean = array_sum($this->crabs) / sizeof($this->crabs);
+        $mean = $mean - intval($mean) >= 0.6 ? round($mean) : floor($mean);
+
         $cheapestRoute = 0;
 
         foreach($this->crabs as $crab) {
