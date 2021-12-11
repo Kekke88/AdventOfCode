@@ -6,6 +6,8 @@ namespace App\Classes;
 
 define('ROW', 0);
 define('COL', 1);
+define('ROW_COUNT', 10);
+define('COL_COUNT', 10);
 
 class Cavern
 {
@@ -68,8 +70,8 @@ class Cavern
         for ($i = 0; $i < PHP_INT_MAX; $i++) {
             $flashes = 0;
 
-            for ($y = 0; $y < sizeof($this->octopuses); $y++) {
-                for ($x = 0; $x < sizeof($this->octopuses[$y]); $x++) {
+            for ($y = 0; $y < ROW_COUNT; $y++) {
+                for ($x = 0; $x < COL_COUNT; $x++) {
                     if ($this->octopuses[$y][$x] !== -1) $this->octopuses[$y][$x]++;
 
                     if ($this->octopuses[$y][$x] > 9) {
@@ -79,8 +81,8 @@ class Cavern
                 }
             }
 
-            for ($y = 0; $y < sizeof($this->octopuses); $y++) {
-                for ($x = 0; $x < sizeof($this->octopuses[$y]); $x++) {
+            for ($y = 0; $y < ROW_COUNT; $y++) {
+                for ($x = 0; $x < COL_COUNT; $x++) {
                     if ($this->octopuses[$y][$x] === -1) $this->octopuses[$y][$x] = 0;
                 }
             }
@@ -96,8 +98,8 @@ class Cavern
         $flashes = 0;
 
         for ($i = 0; $i < $steps; $i++) {
-            for ($y = 0; $y < sizeof($this->octopuses); $y++) {
-                for ($x = 0; $x < sizeof($this->octopuses[$y]); $x++) {
+            for ($y = 0; $y < ROW_COUNT; $y++) {
+                for ($x = 0; $x < COL_COUNT; $x++) {
                     if ($this->octopuses[$y][$x] !== -1) $this->octopuses[$y][$x]++;
 
                     if ($this->octopuses[$y][$x] > 9) {
@@ -107,8 +109,8 @@ class Cavern
                 }
             }
 
-            for ($y = 0; $y < sizeof($this->octopuses); $y++) {
-                for ($x = 0; $x < sizeof($this->octopuses[$y]); $x++) {
+            for ($y = 0; $y < ROW_COUNT; $y++) {
+                for ($x = 0; $x < COL_COUNT; $x++) {
                     if ($this->octopuses[$y][$x] === -1) $this->octopuses[$y][$x] = 0;
                 }
             }
@@ -120,8 +122,8 @@ class Cavern
     public function debug()
     {
         echo "--- DEBUG ---\n";
-        for ($y = 0; $y < sizeof($this->octopuses); $y++) {
-            for ($x = 0; $x < sizeof($this->octopuses[$y]); $x++) {
+        for ($y = 0; $y < ROW_COUNT; $y++) {
+            for ($x = 0; $x < COL_COUNT; $x++) {
                 echo $this->octopuses[$y][$x];
             }
 
