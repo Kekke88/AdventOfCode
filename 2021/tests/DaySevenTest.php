@@ -16,6 +16,6 @@ final class DaySevenTest extends TestCase
         $crabFuel = $parser->read(new CrabFuelReader);
 
         $this->assertEquals(37, $crabFuel->calculateOptimalRoute());
-        $this->assertEquals(168, $crabFuel->calculateRealOptimalRoute());
+        $this->assertEquals(170, $crabFuel->calculateRealOptimalRoute());
     }
 }

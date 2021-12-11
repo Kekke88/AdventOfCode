@@ -33,7 +33,7 @@ class CrabFuel
 
         foreach($this->crabs as $crab) {
             $cost = abs($crab - $mean);
-            $cheapestRoute += ($cost * $cost + $cost) / 2;
+            $cheapestRoute += (($cost * $cost) + $cost) / 2;
         }
 
         return $cheapestRoute;
