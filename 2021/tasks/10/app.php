@@ -6,7 +6,7 @@ use App\Classes\Parser;
 use App\Classes\NavigationSystemReader;
 
 $timeStart = microtime(true);
-$parser = new Parser(dirname(__FILE__) . '/test.in');
+$parser = new Parser(dirname(__FILE__) . '/data.in');
 
 $navigation = $parser->read(new NavigationSystemReader);
 
