@@ -1,0 +1,16 @@
+{
+    "name": "kekke/2024",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Kekke\\2024\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Henric Johansson",
+            "email": "hej@henricjohansson.se"
+        }
+    ],
+    "require": {}
+}
